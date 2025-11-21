@@ -1,0 +1,65 @@
+# Rapport TD OpenGL – Introduction
+
+---
+
+## 1. Primitives
+
+### 1.1 Attributs des primitives
+Chaque sommet peut avoir des attributs comme la couleur, les coordonnées de texture ou les normales.  
+**Exercice 1.1 :** Les sommets d’un triangle ont été colorés différemment : rouge, vert et bleu.  
+**Observation :** La rasterisation OpenGL interpole les couleurs entre les sommets, créant un dégradé visible.
+
+### 1.2 Orientation des primitives
+OpenGL considère une primitive comme « avant » si les sommets sont définis dans l’ordre inverse des aiguilles d’une montre.  
+**Exercice 1.2 :** En activant le *face culling* et en inversant deux sommets, certaines faces deviennent invisibles, démontrant la suppression des faces cachées.
+
+---
+
+## 2. Fenêtrage
+`glViewport()` définit le repère en pixels sur la fenêtre et `glScissor()` limite le rendu à une portion spécifique.  
+**Exercice 2.1 :** Quatre viewports ont été créés avec des couleurs de fond différentes et des primitives distinctes.  
+**Observation :** L’ordre des appels (`glViewport()` et `glScissor()` avant le rendu) est crucial pour que l’affichage soit correct.
+
+---
+
+## 3. Transformations
+
+### 3.1 Matrices et transformations
+OpenGL utilise des matrices 4x4 pour les transformations (translation, rotation, échelle). L’ordre des appels est inversé par rapport à l’ordre mathématique des transformations.
+
+**Exercice 3.1.a :** Le triangle est tourné de 45° autour de l’axe Z. Il **semble tourné** mais reste fixe, aucune animation n’est appliquée.  
+**Exercice 3.1.b :** Avec `glLoadIdentity()`, le triangle reste fixe malgré la rotation, car la matrice globale est réinitialisée.  
+**Exercice 3.1.c :** Le triangle a été agrandi (1,5×), tourné vers la gauche et déplacé vers la droite, illustrant le chaînage des transformations.
+
+### 3.2 Animation
+Le temps écoulé depuis le début du programme sert de facteur pour animer un objet (rotation, déplacement ou échelle).  
+**Observation :** L’utilisation de `GLUT_ELAPSED_TIME` permet des animations fluides basées sur le temps réel.
+
+### 3.3 Pile matricielle
+La pile matricielle (`glPushMatrix()` / `glPopMatrix()`) permet de sauvegarder et restaurer les transformations.  
+**Exercice 3.3 :** Deux triangles avec des transformations différentes peuvent être affichés sans réinitialiser la matrice globale, démontrant l’utilité de la pile.
+
+### 3.4 Matrices custom
+OpenGL permet de charger des matrices personnalisées ou de multiplier la matrice courante pour un contrôle précis des transformations.
+
+---
+
+## 4. Projections
+OpenGL propose des projections orthographiques et en perspective.  
+
+**Exercice 4.1.a :** `gluOrtho2D()` définit un repère en pixels avec l’origine en bas à gauche, pratique pour le rendu 2D.  
+**Exercice 4.1.b :** `gluPerspective()` crée un effet de profondeur pour un rendu 3D. Les objets doivent être positionnés sur l’axe Z pour être visibles.
+
+---
+
+## 5. Caméra
+OpenGL ne possède pas de caméra physique ; déplacer la scène simule une caméra.  
+**Exercice 5.1 :** `gluLookAt()` définit la position de la « caméra », le point de regard et l’orientation verticale, simplifiant la visualisation depuis un point de vue spécifique.
+
+---
+
+## 6. Objets 3D
+Les objets 3D sont composés de triangles. Par exemple, un cube a 8 sommets et 12 triangles (2 par face).  
+**Observation générale :** Ce TD illustre les concepts essentiels d’OpenGL : primitives, transformations, projections et rendu 3D.
+
+---
